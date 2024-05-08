@@ -6,7 +6,7 @@
 	<?php $logo=get_field('logo','option');
 	$customWalker = new Menu_With_Description;
 	if($logo):?>
-	 <img src="<?php echo $logo?>" style="width:50px;height:50px;margin-bottom: -40px;"> 
+	 <img src="<?php echo $logo?>" style="width:50px;height:50px;margin-bottom:-40px;"> 
 	<?php endif;
 	 ?>
 	<title><?php bloginfo('name');?></title>

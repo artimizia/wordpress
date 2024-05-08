@@ -1,10 +1,11 @@
 <?php
 require_once ABSPATH.'wp-includes/class-wp-widget.php';
+//menu registeration
 register_nav_menus(array(
 	'primary'=>__('Primary Menu'),
     'footer'=>__('Footer Menu'),
 ));
-
+//acf settings
 if( function_exists('acf_add_options_page') ) {
 
     acf_add_options_page(array(
@@ -15,38 +16,24 @@ if( function_exists('acf_add_options_page') ) {
         'redirect'      => false
     ));
 
-    // acf_add_options_sub_page(array(
-    //     'page_title'    => 'Theme Header Settings',
-    //     'menu_title'    => 'Header',
-    //     'parent_slug'   => 'theme-general-settings',
-    // ));
-
-    // acf_add_options_sub_page(array(
-    //     'page_title'    => 'Theme Footer Settings',
-    //     'menu_title'    => 'Footer',
-    //     'parent_slug'   => 'theme-general-settings',
-    // ));
 
 }
-// The shortcode function
 
+//include slick slider file
 function includeFile(){
 	$clean_file_path="\slick_slider_template.php";
 	$result=file_exists($clean_file_path);
 	var_dump($result);
-	//if(file_exists($clean_file_path)){
-		echo "comes in includefile";
-		ob_start();
-	   include(TEMPLATEPATH.$clean_file_path);
-      $content= ob_get_clean();
-       return $content;
-	
-	//}
-	return "hello";	
+	ob_start();
+	include(TEMPLATEPATH.$clean_file_path);
+    $content= ob_get_clean();
+    return $content;
 }
+
 //Register shortcode
 add_shortcode('my_ad_code', 'includeFile'); 
 
+//formatable form 
 add_filter( 'frm_validate_field_entry', 'require_a_field', 10, 3 );
 function require_a_field( $errors, $field, $value ) {
   if (( $field->id == 15 && trim( $value ) == '' )|| ($field->id ==17 && trim($value)=='') ) { 
@@ -60,9 +47,11 @@ function require_a_field( $errors, $field, $value ) {
   return $errors;
 }
 
+//post meta boxes
 function hcf_register_meta_boxes() {
     add_meta_box( 'hcf-1', __( 'Enter Field', 'hcf' ), 'smashing_post_class_meta_box', 'page','side','default' );
 }
+//slider meta boxes
 function register_slider_meta_box(){
 	 add_meta_box( 'hcf-1', __( 'Enter Field', 'hcf' ), 'slider_meta_box', 'slider','side','default' );
 }
@@ -78,17 +67,11 @@ add_action( 'wp_enqueue_scripts', 'my_theme_enqueue_styles' );
 function my_theme_enqueue_styles() {
 		wp_register_style('slick-css', get_template_directory_uri() .'/assets/slick/slick.css');
 		wp_register_style('slick-theme-css', get_template_directory_uri() .'/assets/slick/slick-theme.css');
-	    // wp_register_script('jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js', false, '1.8.1');
-        // wp_enqueue_script('jquery');  
-
 		wp_register_script('slick-min-js', get_template_directory_uri().'/assets/slick/slick.min.js', [], null, false);
 
         wp_enqueue_script('slick-min-js');  
 		wp_enqueue_style('slick-css');
 		wp_enqueue_style('slick-theme-css');
-		// wp_enqueue_script('jquery-min-js');
-		// wp_enqueue_script('slick-min-js');
-		//wp_enqueue_script('myscript-js');
 }
 function register_foo() {
 	register_widget( 'Foo_Widget' );
@@ -112,12 +95,7 @@ function wpdocs_theme_slug_widgets_init() {
 	) );
 }
 add_action( 'widgets_init', 'wpdocs_theme_slug_widgets_init' );
-//dynamic_sidebar('wpdocs_theme_slug_widgets_init');
-
 function wpl_owt_save_meta_box($post_id){
-	// if(!isset($_POST['smashing_post_class_nonce'])||!wp_verify_nonce($_POST['smashing_post_class_nonce'])){
-	// 	return $post_id;
-	// }
 	$fieldName=sanitize_text_field($_POST['fieldName']);
 	$fieldValue=sanitize_text_field($_POST['fieldValue']);
 	update_post_meta($post_id,'fieldName',$fieldName);
@@ -159,13 +137,9 @@ function smashing_post_class_meta_box( $post ) { ?>
 
 
 <?php
-/**
- * Adds Foo_Widget widget.
- */
+
 class Foo_Widget extends WP_Widget {
-	/**
-	 * Register widget with WordPress.
-	 */
+	
 	public function __construct() {
 		parent::__construct(
 			'foo_widget', // Base ID
@@ -173,14 +147,7 @@ class Foo_Widget extends WP_Widget {
 			array( 'description' => __( 'A Foo Widget', 'text_domain' ) ) // Args
 		);
 	}
-	/**
-	 * Front-end display of widget.
-	 *
-	 * @see WP_Widget::widget()
-	 *
-	 * @param array $args     Widget arguments.
-	 * @param array $instance Saved values from database.
-	 */
+
 	public function widget( $args, $instance ) {
 		extract( $args );
 		$title = apply_filters( 'widget_title', $instance['title'] );
@@ -198,13 +165,6 @@ class Foo_Widget extends WP_Widget {
 		echo '<img style="width:50px;height:50px;margin-bottom: -10px;" src="'.	get_field($instance['featureImage'],'option').'">';
 		echo $after_widget;
 	}
-	/**
-	 * Back-end widget form.
-	 *
-	 * @see WP_Widget::form()
-	 *
-	 * @param array $instance Previously saved values from database.
-	 */
 	public function form( $instance ) {
 		if ( isset( $instance['title'] ) ) {
 			$title = $instance['title'];
@@ -237,16 +197,7 @@ class Foo_Widget extends WP_Widget {
 		
 		<?php
 	}
-	/**
-	 * Sanitize widget form values as they are saved.
-	 *
-	 * @see WP_Widget::update()
-	 *
-	 * @param array $new_instance Values just sent to be saved.
-	 * @param array $old_instance Previously saved values from database.
-	 *
-	 * @return array Updated safe values to be saved.
-	 */
+	
 	public function update( $new_instance, $old_instance ) {
 		$instance          = array();
 		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
@@ -297,38 +248,9 @@ function wms_slider_init() {
     register_post_type( 'slider', $args );
 }
 add_action( 'init', 'wms_slider_init' );
-// add_action( 'init', 'wms_create_slider_taxonomies', 0 );
-
-// //create SlideShow Category for the post type "slider"
-// function wms_create_slider_taxonomies() {
-
-//     // Add new taxonomy, make it hierarchical (like categories)
-//     $labels = array(
-//         'name'                => _x( 'SlideShows', 'taxonomy general name' ),
-//         'singular_name'       => _x( 'SlideShow', 'taxonomy singular name' ),
-//         'search_items'        => __( 'Search Genres' ),
-//         'all_items'           => __( 'All SlideShows' ),
-//         'parent_item'         => __( 'Parent SlideShow' ),
-//         'parent_item_colon'   => __( 'Parent SlideShow:' ),
-//         'edit_item'           => __( 'Edit SlideShow' ), 
-//         'update_item'         => __( 'Update SlideShow' ),
-//         'add_new_item'        => __( 'Add New SlideShow' ),
-//         'new_item_name'       => __( 'New SlideShow Name' ),
-//         'menu_name'           => __( 'SlideShow' )
-//     );    
-
-//     $args = array(
-//         'hierarchical'        => true,
-//         'labels'              => $labels,
-//         'show_ui'             => true,
-//         'show_admin_column'   => true,
-//         'query_var'           => true,
-//         'rewrite'             => array( 'slug' => 'slideshow' )
-//     );
-//     register_taxonomy( 'slideshow', array( 'slider' ), $args );
-// }
 
 
+//walker class 
 class Menu_With_Description extends Walker_Nav_Menu  {
 
 
