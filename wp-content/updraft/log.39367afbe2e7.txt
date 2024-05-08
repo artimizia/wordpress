@@ -1,0 +1,44 @@
+0000.036 () Opened log file at time: Wed, 24 Apr 2024 06:46:37 +0000 on http://localhost/wp-test
+0000.037 () UpdraftPlus WordPress backup plugin (https://updraftplus.com): 1.24.2 WP: 6.5.2 PHP: 8.2.12 (apache2handler, Windows NT DESKTOP-E5OKJQ8 10.0 build 19045 (Windows 10) AMD64) MySQL: 10.4.32-MariaDB (max packet size=1048576) WPLANG: en_US Server: Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12 safe_mode: 0 max_execution_time: 900 memory_limit: 512M (used: 148.3M | 150M) multisite: N openssl: OpenSSL 3.0.11 19 Sep 2023 mcrypt: N LANG:  ZipArchive::addFile: N
+0000.037 () Free space on disk containing Updraft's temporary directory: 180535 MB
+0000.165 () Restore setup, now closing connection and starting restore over AJAX.
+0000.111 () Opened log file at time: Wed, 24 Apr 2024 06:46:48 +0000 on http://localhost/wp-test
+0000.118 () UpdraftPlus WordPress backup plugin (https://updraftplus.com): 1.24.2 WP: 6.5.2 PHP: 8.2.12 (apache2handler, Windows NT DESKTOP-E5OKJQ8 10.0 build 19045 (Windows 10) AMD64) MySQL: 10.4.32-MariaDB (max packet size=1048576) WPLANG: en_US Server: Apache/2.4.58 (Win64) OpenSSL/3.1.3 PHP/8.2.12 safe_mode: 0 max_execution_time: 900 memory_limit: 512M (used: 141.3M | 144M) multisite: N openssl: OpenSSL 3.0.11 19 Sep 2023 mcrypt: N LANG:  ZipArchive::addFile: N
+0000.118 () Free space on disk containing Updraft's temporary directory: 180520.2 MB
+0000.142 () Ensuring WP_Filesystem is setup for a restore
+0000.152 () WP_Filesystem is setup and ready for a restore
+0000.165 () Restore job started. Entities to restore: themes, uploads, others. Restore options: {"updraft_encryptionphrase":"","updraft_restorer_wpcore_includewpconfig":false,"updraft_incremental_restore_point":-1}
+0000.174 () PHP event: code E_WARNING: mkdir(): File exists (line 558, C:\xampp\htdocs\wp-test\wp-admin\includes\class-wp-filesystem-direct.php)
+0000.194 () Will not delete any archives after unpacking them, because there was no cloud storage for this backup
+0000.207 () Entity: themes
+0000.207 () restore_backup(backup_file=backup_2024-04-24-0603_test_site_bcb69e32a930-themes.zip, type=themes, info=a:3:{s:4:"path";s:41:"C:\xampp\htdocs\wp-test/wp-content/themes";s:11:"description";s:6:"Themes";s:20:"singular_description";s:5:"Theme";}, last_one=)
+0000.208 () Unpacking backup... (backup_2024-04-24-0603_test_site_bcb69e32a930-themes.zip, 13.3 MB)
+0000.215 () Unzipping backup_2024-04-24-0603_test_site_bcb69e32a930-themes.zip to C:/xampp/htdocs/wp-test/wp-content/upgrade/d5e8b829/ using UpdraftPlus_PclZip, starting index 0
+0011.265 () Unzip progress: 1002 out of 1480 files (7.3 MB, themes/blocksy/static/sass/frontend/6-layout/entries/classic-entries.scss)
+0020.258 () Unzip progress: 1480 out of 1480 files (19.5 MB, themes/twentytwentytwo/templates/single.html)
+0020.262 () Moving old data: filesystem method / updraft_dir is potentially possible
+0020.262 () Moving old data: can potentially use wp_filesystem method / -old
+0020.263 () Moving old data out of the way...
+0021.120 () Top-level entities being moved: blocksy, custom, index.php, twentytwentyfour, twentytwentythree, twentytwentytwo
+0022.785 () Moving unpacked backup into place...
+0023.274 () Top-level entities being moved: blocksy, custom, index.php, twentytwentyfour, twentytwentythree, twentytwentytwo
+0023.291 () Cleaning up rubbish...
+0023.331 () Entity: uploads
+0023.331 () restore_backup(backup_file=backup_2024-04-24-0603_test_site_bcb69e32a930-uploads.zip, type=uploads, info=a:2:{s:4:"path";s:42:"C:\xampp\htdocs\wp-test/wp-content/uploads";s:11:"description";s:7:"Uploads";}, last_one=)
+0023.332 () Unpacking backup... (backup_2024-04-24-0603_test_site_bcb69e32a930-uploads.zip, 4.8 MB)
+0023.334 () Unzipping backup_2024-04-24-0603_test_site_bcb69e32a930-uploads.zip to C:/xampp/htdocs/wp-test/wp-content/upgrade/f8952f2f/ using UpdraftPlus_PclZip, starting index 0
+0023.686 () Unzip progress: 117 out of 117 files (6.5 MB, uploads/wpforms/cache/templates.json)
+0023.689 () Moving old data: filesystem method / updraft_dir is potentially possible
+0023.690 () Moving old data: can potentially use wp_filesystem method / -old
+0023.690 () Moving old data out of the way...
+0023.776 () Moving unpacked backup into place...
+0023.846 () Cleaning up rubbish...
+0023.877 () Entity: others
+0023.877 () restore_backup(backup_file=backup_2024-04-24-0603_test_site_bcb69e32a930-others.zip, type=others, info=a:2:{s:4:"path";s:34:"C:\xampp\htdocs\wp-test/wp-content";s:11:"description";s:6:"Others";}, last_one=1)
+0023.878 () Unpacking backup... (backup_2024-04-24-0603_test_site_bcb69e32a930-others.zip, 0 MB)
+0023.880 () Unzipping backup_2024-04-24-0603_test_site_bcb69e32a930-others.zip to C:/xampp/htdocs/wp-test/wp-content/upgrade/d689f8d7/ using UpdraftPlus_PclZip, starting index 0
+0023.910 () Unzip progress: 1 out of 1 files (28 B, index.php)
+0023.914 () Cleaning up rubbish...
+0023.934 () Elementor's clear cache method exists and will be executed
+0024.000 () Restore successful!
+0024.000 () Restore successful
