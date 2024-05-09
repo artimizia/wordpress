@@ -49,11 +49,11 @@ function require_a_field( $errors, $field, $value ) {
 
 //post meta boxes
 function hcf_register_meta_boxes() {
-    add_meta_box( 'hcf-1', __( 'Enter Field', 'hcf' ), 'smashing_post_class_meta_box', 'page','side','default' );
+    add_meta_box( 'metaBox1', 'Enter Field', 'smashing_post_class_meta_box', 'page','side','default' );
 }
 //slider meta boxes
 function register_slider_meta_box(){
-	 add_meta_box( 'hcf-1', __( 'Enter Field', 'hcf' ), 'slider_meta_box', 'slider','side','default' );
+	 add_meta_box( 'metaBox2', 'Enter Field', 'slider_meta_box', 'slider','side','default' );
 }
 
 add_action( 'add_meta_boxes', 'hcf_register_meta_boxes' );
@@ -85,9 +85,9 @@ register_sidebar( array(
  */
 function wpdocs_theme_slug_widgets_init() {
 	register_sidebar( array(
-		'name'          => __( 'Main Sidebar', 'textdomain' ),
+		'name'          => 'Main Sidebar',
 		'id'            => 'sidebar-1',
-		'description'   => __( 'Widgets in this area will be shown on all posts and pages.', 'textdomain' ),
+		'description'   => 'Widgets in this area will be shown on all posts and pages.',
 		'before_widget' => '<li id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</li>',
 		'before_title'  => '<h2 class="widgettitle">',
@@ -109,15 +109,13 @@ function slider_save_meta_box($post_id){
 
 function smashing_post_class_meta_box( $post ) { ?>
 
-  <?php wp_nonce_field( basename( __FILE__ ), 'smashing_post_class_nonce' ); ?>
-
   <p>
-    <label for="fieldName"><?php \_e( "field name", 'example' ); ?></label>
+    <label for="fieldName">field name</label>
     <br />
     <input class="widefat" type="text" name="fieldName" id="fieldName" value="<?php echo esc_attr( get_post_meta( $post->ID ,"fieldName",true) ); ?>" size="30" />
   </p>
    <p>
-    <label for="fieldValue"><?php \_e( "field value", 'example' ); ?></label>
+    <label for="fieldValue">field value</label>
     <br />
     <input  type="textarea" name="fieldValue" id="fieldValue" value="<?php echo esc_attr( get_post_meta( $post->ID ,"fieldValue",true)); ?>" style="width:250px;height:80px" />
   </p>
@@ -125,10 +123,8 @@ function smashing_post_class_meta_box( $post ) { ?>
 
 <?php function slider_meta_box( $post ) { ?>
 
-  <?php wp_nonce_field( basename( __FILE__ ), 'slider_nonce' ); ?>
-
   <p>
-    <label for="subtitle"><?php \_e( "Subtitle", 'example' ); ?></label>
+    <label for="subtitle">Subtitle</label>
     <br />
     <input class="widefat" type="text" name="subtitle" id="subtitle" value="<?php echo esc_attr( get_post_meta( $post->ID ,"subtitle",true) ); ?>" size="30" />
   </p>
@@ -173,23 +169,23 @@ class Foo_Widget extends WP_Widget {
 			$linkName = $instance['linkName'];
 		    $featureImage =$instance['featureImage'] ;
 		} else {
-			$title = __( 'New title', 'text_domain' );
-			$content = __( 'New content', 'text_domain' );
-			$linkName = __( 'New link Name', 'text_domain' );
-			$link = __( 'New link', 'text_domain' );
+			$title = 'New title';
+			$content = 'New content';
+			$linkName = 'New link Name';
+			$link ='New link';
 		}
 		?>
 		<p>
-			<label for="<?php echo $this->get_field_name( 'title' ); ?>"><?php _e( 'Title:' ); ?></label>
+			<label for="<?php echo $this->get_field_name( 'title' ); ?>">Title:</label>
 			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
 
-			<label for="<?php echo $this->get_field_name( 'content' ); ?>"><?php _e( 'Content:' ); ?></label>
+			<label for="<?php echo $this->get_field_name( 'content' ); ?>">Content:<label>
 			<input class="widefat" id="<?php echo $this->get_field_name( 'content' ); ?>" name="<?php echo $this->get_field_name( 'content' ); ?>"type="text" value="<?php echo esc_attr( $content ); ?>" />
 
-			<label for="<?php echo $this->get_field_name( 'linkName' ); ?>"><?php _e( 'Link Name:' ); ?></label>
+			<label for="<?php echo $this->get_field_name( 'linkName' ); ?>">Link Name:</label>
 			<input class="widefat" id="<?php echo $this->get_field_name( 'linkName' ); ?>" name="<?php echo $this->get_field_name( 'linkName' ); ?>"type="text" value="<?php echo esc_attr( $linkName ); ?>" />
 			
-			<label for="<?php echo $this->get_field_name( 'link' ); ?>"><?php _e( 'Link:' ); ?></label>
+			<label for="<?php echo $this->get_field_name( 'link' ); ?>">Link:</label>
 			<input class="widefat" id="<?php echo $this->get_field_name( 'link' ); ?>" name="<?php echo $this->get_field_name( 'link' ); ?>"type="text" value="<?php echo esc_attr( $link ); ?>" />
 			<label for="<?php echo $this->get_field_id('featureImage'); ?>">Add acf image tag</label><br />
             <input type="text" class="img" name="<?php echo $this->get_field_name('featureImage'); ?>" id="<?php echo $this->get_field_id('featureImage'); ?>" value="<?php echo $instance['featureImage']; ?>" />
