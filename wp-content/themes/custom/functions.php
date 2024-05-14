@@ -1,5 +1,6 @@
 <?php
 require_once ABSPATH.'wp-includes/class-wp-widget.php';
+
 //menu registeration
 register_nav_menus(array(
 	'primary'=>__('Primary Menu'),
@@ -18,20 +19,23 @@ if( function_exists('acf_add_options_page') ) {
 
 
 }
-
+echo get_template_directory_uri() ."/slick_slider_template.php";
+//addSlider();
 //include slick slider file
 function includeFile(){
-	$clean_file_path="\slick_slider_template.php";
-	$result=file_exists($clean_file_path);
-	var_dump($result);
-	ob_start();
-	include(TEMPLATEPATH.$clean_file_path);
-    $content= ob_get_clean();
-    return $content;
+	echo file_get_contents(get_template_directory_uri() ."/slick_slider_template.php");
+	// $clean_file_path="\slick_slider_template.php";
+	// $result=file_exists($clean_file_path);
+	// var_dump($result);
+
+	// ob_start();
+	// include(TEMPLATEPATH.$clean_file_path);
+    // $content= ob_get_clean();
+    // return $content;
 }
 
 //Register shortcode
-add_shortcode('my_ad_code', 'includeFile'); 
+add_shortcode('my_ad_code', 'addSlider'); 
 
 //formatable form 
 add_filter( 'frm_validate_field_entry', 'require_a_field', 10, 3 );
@@ -68,7 +72,8 @@ function my_theme_enqueue_styles() {
 		wp_register_style('slick-css', get_template_directory_uri() .'/assets/slick/slick.css');
 		wp_register_style('slick-theme-css', get_template_directory_uri() .'/assets/slick/slick-theme.css');
 		wp_register_script('slick-min-js', get_template_directory_uri().'/assets/slick/slick.min.js', [], null, false);
-
+        // wp_register_script('slick-template', get_template_directory_uri().'\slick_slider_template.php', [], null, false);
+        // wp_enqueue_script('slick-template');  
         wp_enqueue_script('slick-min-js');  
 		wp_enqueue_style('slick-css');
 		wp_enqueue_style('slick-theme-css');
@@ -281,3 +286,59 @@ class Menu_With_Description extends Walker_Nav_Menu  {
 
 }
 ?>
+<?php 
+
+function addSlider() {?>
+<main class="wp-block-group">
+	<div class="slider_page_wrapper">
+		<h1>show all post</h1>
+		<?php 
+		$query = new WP_Query(array(
+   'posts_per_page' => -1,
+			'post_type' => 'slider',
+			'post_status'    => 'publish',
+			'orderby'        => 'post_type',
+        	'order'          => 'DESC'
+));
+
+	 if($query->have_posts()){
+	 	echo '<div class ="custom-slider">';
+	 	while($query->have_posts()){
+	 		  $query->the_post();?>
+		 		<div class="custom-slide">
+		 			 <?php $featuredImage=get_the_post_thumbnail_url(get_the_ID(),'full');?>
+		 			<div class="post_image"><img style="width:100px;" src="<?php echo $featuredImage?>" alt="Image"></div>
+		 			<h2><a href="<?php the_permalink();?>"><?php the_title();?></a></h2>
+                    <?php the_excerpt();?>
+		 			<?php echo get_post_meta(get_the_ID(), 'subtitle', true);?>
+		 			
+		 		</div>
+		 		
+	<?php	 }
+		}
+		 
+  wp_reset_postdata();
+?>
+	
+
+</main>
+			
+<script type="text/javascript">
+	$=jQuery;
+	$(document).ready(function(){
+		console.log("comes in");
+
+		$('.custom-slider').slick({
+			  slidesToShow: 3,
+			  slidesToScroll: 1,
+			  autoplay: true,
+			  autoplaySpeed: 2000,
+		});
+
+			
+	});
+</script>
+
+<?php }?>
+
+
